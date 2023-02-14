@@ -13,11 +13,27 @@
     </div>
     {{- end }}
     {{- if not (.Param "hideMeta") }}
+    <div>
     <div class="post-meta">
       {{- partial "post_meta.html" . -}}
       {{- partial "translation_list.html" . -}}
       {{- partial "edit_post.html" . -}}
       {{- partial "post_canonical.html" . -}}
+    </div>
+    <span>
+      Views: 
+      <span id="stats">
+          0
+          <script>
+              var r = new XMLHttpRequest();
+              r.addEventListener('load', function() {
+                  document.querySelector('#stats').innerText = JSON.parse(this.responseText).count
+              })
+              let countpath = "{{ .RelPermalink }}".slice(0,-1)
+              r.open('GET', 'https://gilben1.goatcounter.com/counter/' + countpath + '.json')
+              r.send()
+          </script>
+      </span>
     </div>
     {{- $tags := .Language.Params.Taxonomies.tag | default "tags" }}
     <ul class="post-tags">
