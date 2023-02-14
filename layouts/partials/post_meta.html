@@ -19,3 +19,16 @@
 {{- with ($scratch.Get "meta") }}
 {{- delimit . "&nbsp;·&nbsp;" -}}
 {{- end -}}
+
+<p>&nbsp;&nbsp;&#x1F441;&nbsp;</p>
+<div id="stats">
+    <script>
+        var r = new XMLHttpRequest();
+        r.addEventListener('load', function() {
+            document.querySelector('#stats').innerText = JSON.parse(this.responseText).count
+        })
+        countpath = "{{ .RelPermalink }}".slice(0,-1)
+        r.open('GET', 'https://gilben1.goatcounter.com/counter/' + countpath + '.json')
+        r.send()
+    </script>
+</div>
